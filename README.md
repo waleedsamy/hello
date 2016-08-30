@@ -1,5 +1,5 @@
 # now-go
- hello world go
+ GO hello world based on https://golang.org/doc/code.html
 
 
 ### steps
@@ -14,6 +14,7 @@ mkdir -p $GOPATH/src/github.com/waleedsamy/hello
 ### build, install and run
 
 ```bash
+go get github.com/golang/example/hello
 go install github.com/waleedsamy/hello
 $GOPATH/bin/hello
 > Hello, world.
