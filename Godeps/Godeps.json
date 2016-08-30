@@ -2,14 +2,5 @@
 	"ImportPath": "github.com/waleedsamy/hello",
 	"GoVersion": "go1.7",
 	"GodepVersion": "v74",
-	"Deps": [
-		{
-			"ImportPath": "github.com/golang/example/stringutil",
-			"Rev": "324742add2041e12bee3312066da5f65b827819e"
-		},
-		{
-			"ImportPath": "github.com/golang/glog",
-			"Rev": "23def4e6c14b4da8ac2ed8007337bc5eb5007998"
-		}
-	]
+	"Deps": []
 }

@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/golang/example/stringutil"
-	"github.com/golang/glog"
+	"net/http"
 )
 
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+}
+
 func main() {
-
-	glog.Info("Hello, world.\n")
-
-	fmt.Printf(stringutil.Reverse("Hello, world.\n"))
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8080", nil)
 }
