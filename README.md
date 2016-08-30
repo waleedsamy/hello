@@ -1,30 +1,34 @@
-# now-go
+# hello
  GO hello world based on https://golang.org/doc/code.html
 
 
+Note: user in github url mean your username(I use mine).
+
 ### steps
 ```bash
-export GOPATH=$HOME/code/github.com/now-go
-mkdir -p $GOPATH
+# update your ~/.bashrc
+export GOPATH=$HOME/code/go
 export PATH=$PATH:$GOPATH/bin
-mkdir $GOPATH/src/github.com/waleedsamy
-mkdir -p $GOPATH/src/github.com/waleedsamy/hello
+
+# now you create a project hello
+mkdir -p $GOPATH/src/github.com/user/hello
+
+# start write your go code
+cd $GOPATH/src/github.com/user/hello && touch hello.go
 ```
 
 ### build, install and run
 
 ```bash
-go get github.com/golang/example/hello
-go install github.com/waleedsamy/hello
-$GOPATH/bin/hello
+go install && hello
 > Hello, world.
 ```
 
 ### push to github
 ```bash
-cd $GOPATH/src/github.com/waleedsamy/hello
+cd $GOPATH/src/github.com/user/hello
 git init
 git add --all && git commit -am "Hello GO"
-git remote add origin git@github.com:waleedsamy/now-go.git
+git remote add origin git@github.com:user/hello.git
 git push origin master
 ```
