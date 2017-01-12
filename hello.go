@@ -13,6 +13,38 @@ const (
 	RI
 )
 
+/*Rectangle Shape of type Rectangle*/
+type Rectangle struct {
+	width, height int
+}
+
+/*Square Shape of type Square*/
+type Square struct {
+	width int
+}
+
+func (r Rectangle) area() int {
+	return r.width * r.height
+}
+
+func (r *Rectangle) doubleTheWidth() {
+	r.width = r.width * 2
+}
+
+func (s Square) area() int {
+	return s.width * s.width
+}
+
+func objori() {
+	r := Rectangle{5, 10}
+	fmt.Printf("Rectangle %v area is %d\n", r, r.area())
+	r.doubleTheWidth()
+	fmt.Printf("Doubled Width Rectangle %v area is %d\n", r, r.area())
+
+	s := Square{width: 5}
+	fmt.Printf("Square %v area is %d\n", s, s.area())
+}
+
 type testint func(int) bool
 
 /*Person is a Guy*/
@@ -147,5 +179,6 @@ func main() {
 	fmt.Printf("%d %d %d %d %d %f\n", v1, v2, v3, b, gg, PI)
 	// ar()
 	// cstatments()
-	structs()
+	// structs()
+	objori()
 }
