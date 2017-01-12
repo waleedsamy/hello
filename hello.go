@@ -15,6 +15,31 @@ const (
 
 type testint func(int) bool
 
+/*Person is a Guy*/
+type Person struct {
+	name string
+	age  int
+}
+
+func older(p1, p2 Person) (Person, int) {
+	if p1.age < p2.age {
+		return p2, p2.age - p1.age
+	}
+	return p1, p1.age - p2.age
+}
+
+func structs() {
+	var a1 Person
+	a1.name = "john"
+	a1.age = 30
+
+	a2 := Person{name: "marc", age: 40}
+
+	olderPerson, diff := older(a1, a2)
+
+	fmt.Printf("old person is %v by %d\n", olderPerson, diff)
+}
+
 func isEven(i int) bool {
 	if i%2 == 0 {
 		return true
@@ -122,4 +147,5 @@ func main() {
 	fmt.Printf("%d %d %d %d %d %f\n", v1, v2, v3, b, gg, PI)
 	// ar()
 	// cstatments()
+	structs()
 }
