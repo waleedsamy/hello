@@ -162,7 +162,7 @@ func ar() {
 
 }
 
-func main() {
+func mmain() {
 	fmt.Printf("%d, %d, %d, %d", PI, CI, DI, RI)
 	var v1, v2, v3 int = 1, 2, 3
 	_, b := 34, 35
