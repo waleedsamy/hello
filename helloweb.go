@@ -1,9 +1,16 @@
 package main
 
 import (
-	"fmt"
+	"errors"
+	"html/template"
 	"io/ioutil"
 	"net/http"
+	"regexp"
+)
+
+var (
+	templates = template.Must(template.ParseFiles("templates/view.html", "templates/edit.html"))
+	validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$")
 )
 
 type Page struct {
@@ -24,16 +31,68 @@ func load(filename string) (*Page, error) {
 	return &Page{Title: filename, Body: body}, nil
 }
 
-func handler(res http.ResponseWriter, req *http.Request) {
-	res.Write([]byte(req.URL.Path[1:]))
+func getTitle(w http.ResponseWriter, r *http.Request) (title string, err error) {
+	m := validPath.FindStringSubmatch(r.URL.Path)
+	if m == nil {
+		return "", errors.New("Invalid Page title")
+	}
+	return m[2], nil
+}
+
+func rendertmplate(w http.ResponseWriter, tmpl string, p *Page) {
+	err := templates.ExecuteTemplate(w, tmpl+".html", p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func viewHandler(w http.ResponseWriter, r *http.Request) {
+	title, err := getTitle(w, r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	p, err := load(title)
+	if err != nil {
+		http.Redirect(w, r, "/edit/"+title, http.StatusFound)
+		return
+	}
+	rendertmplate(w, "view", p)
+}
+
+func editHandler(w http.ResponseWriter, r *http.Request) {
+	title, err := getTitle(w, r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	p, err := load(title)
+	if err != nil {
+		p = &Page{Title: title}
+	}
+	rendertmplate(w, "edit", p)
+}
+
+func saveHandler(w http.ResponseWriter, r *http.Request) {
+	title, err := getTitle(w, r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	body := r.FormValue("body")
+	p := &Page{Title: title, Body: []byte(body)}
+	err = p.save()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	http.Redirect(w, r, "/view/"+title, http.StatusFound)
 }
 
 func main() {
-	p1 := Page{Title: "hello", Body: []byte("first body content")}
-	p1.save()
-	p2, _ := load("hello")
-	fmt.Println(string(p2.Body))
-
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/view/", viewHandler)
+	http.HandleFunc("/edit/", editHandler)
+	http.HandleFunc("/save/", saveHandler)
 	http.ListenAndServe(":8080", nil)
 }

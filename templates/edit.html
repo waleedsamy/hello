@@ -1,0 +1,16 @@
+<html>
+
+<head>
+    <title>Editing {{.Title}}</title>
+</head>
+
+<body>
+    <form action="/save/{{.Title}}" method="POST">
+        <textarea name="body">
+          {{printf "%s" .Body}}
+        </textarea>
+        <input type="submit">
+    </form>
+</body>
+
+</html>
