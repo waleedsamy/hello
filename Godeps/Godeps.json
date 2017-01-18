@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/waleedsamy/hello",
+	"ImportPath": "github.com/waleedsamy/letsgo",
 	"GoVersion": "go1.7",
 	"GodepVersion": "v74",
 	"Deps": []

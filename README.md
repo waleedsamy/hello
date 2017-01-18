@@ -1,4 +1,4 @@
-# hello
+# let's go
  GO hello world based on https://golang.org/doc/code.html
 
 
@@ -11,24 +11,24 @@ export GOPATH=$HOME/code/go
 export PATH=$PATH:$GOPATH/bin
 
 # now you create a project hello
-mkdir -p $GOPATH/src/github.com/user/hello
+mkdir -p $GOPATH/src/github.com/user/letsgo
 
 # start write your go code
-cd $GOPATH/src/github.com/user/hello && touch hello.go
+cd $GOPATH/src/github.com/user/letsgo && touch hello.go
 ```
 
 ### build, install and run
 
 ```bash
-go install && hello
+go install && letsgo
 > Hello, world.
 ```
 
 ### push to github
 ```bash
-cd $GOPATH/src/github.com/user/hello
+cd $GOPATH/src/github.com/user/letsgo
 git init
 git add --all && git commit -am "Hello GO"
-git remote add origin git@github.com:user/hello.git
+git remote add origin git@github.com:user/letsgo.git
 git push origin master
 ```
