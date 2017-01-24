@@ -31,3 +31,5 @@ _testmain.go
 *.out
 data/*.txt
 .DS_Store
+
+vendor/**/.git
