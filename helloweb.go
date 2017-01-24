@@ -82,7 +82,7 @@ func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
 	http.Redirect(w, r, "/view/"+title, http.StatusFound)
 }
 
-func main() {
+func main2() {
 	http.HandleFunc("/view/", makeHandler(viewHandler))
 	http.HandleFunc("/edit/", makeHandler(editHandler))
 	http.HandleFunc("/save/", makeHandler(saveHandler))
