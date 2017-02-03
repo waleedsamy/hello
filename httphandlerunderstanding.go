@@ -13,8 +13,14 @@ func (p pound) String() string {
 }
 
 func (db database) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	for item, price := range db {
-		fmt.Fprintf(w, "%s: %s\n", item, price)
+	switch r.URL.Path {
+	case "/foo":
+		fmt.Fprintf(w, "%s: %s", "foo", db["foo"])
+	case "/bar":
+		fmt.Fprintf(w, "%s: %s", "bar", db["bar"])
+	default:
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "%s Not Found!", r.URL.Path)
 	}
 }
 
