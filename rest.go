@@ -32,7 +32,7 @@ func deleteuser(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	fmt.Fprintf(w, "delete user %s", ps.ByName("uid"))
 }
 
-func main() {
+func main3() {
 	router := httprouter.New()
 	router.GET("/", Index)
 	router.GET("/hello/:name", Hello)
