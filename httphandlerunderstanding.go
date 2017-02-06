@@ -12,19 +12,28 @@ func (p pound) String() string {
 	return fmt.Sprintf("£%.2f", p)
 }
 
-func (db database) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	switch r.URL.Path {
-	case "/foo":
-		fmt.Fprintf(w, "%s: %s", "foo", db["foo"])
-	case "/bar":
-		fmt.Fprintf(w, "%s: %s", "bar", db["bar"])
-	default:
-		w.WriteHeader(http.StatusNotFound)
-		fmt.Fprintf(w, "%s Not Found!", r.URL.Path)
-	}
+func (d database) bar(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "%s: %s", "bar", d["bar"])
+}
+
+func (d database) foo(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "%s: %s", "foo", d["foo"])
+}
+
+func (d database) baz(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "%s: %s", "baz", d["baz"])
 }
 
 func main() {
-	db := database{"foo": 1, "bar": 2}
-	http.ListenAndServe(":8080", db)
+	var db = database{
+		"foo": 1,
+		"bar": 2,
+		"baz": 3,
+	}
+	mux := http.NewServeMux()
+	mux.HandleFunc("/foo", db.foo)
+	mux.HandleFunc("/bar", db.bar)
+	mux.Handle("/baz", http.HandlerFunc(db.baz))
+
+	http.ListenAndServe(":8080", mux)
 }
