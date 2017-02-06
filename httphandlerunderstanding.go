@@ -30,10 +30,10 @@ func main() {
 		"bar": 2,
 		"baz": 3,
 	}
-	mux := http.NewServeMux()
-	mux.HandleFunc("/foo", db.foo)
-	mux.HandleFunc("/bar", db.bar)
-	mux.Handle("/baz", http.HandlerFunc(db.baz))
 
-	http.ListenAndServe(":8080", mux)
+	http.HandleFunc("/foo", db.foo)
+	http.HandleFunc("/bar", db.bar)
+	http.Handle("/baz", http.HandlerFunc(db.baz))
+
+	http.ListenAndServe(":8080", nil)
 }
