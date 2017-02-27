@@ -60,7 +60,7 @@ func older(p1, p2 Person) (Person, int) {
 	return p1, p1.age - p2.age
 }
 
-func structs() {
+func structss() {
 	var a1 Person
 	a1.name = "john"
 	a1.age = 30
@@ -179,6 +179,6 @@ func main1() {
 	fmt.Printf("%d %d %d %d %d %f\n", v1, v2, v3, b, gg, PI)
 	// ar()
 	// cstatments()
-	// structs()
+	// structss()
 	objori()
 }
