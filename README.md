@@ -20,8 +20,9 @@ cd $GOPATH/src/github.com/user/letsgo && touch hello.go
 ### build, install and run
 
 ```bash
-go install && letsgo
-> Hello, world.
+go install
+go run . -config.file let.yaml
+curl http://localhost:8080/baz
 ```
 
 ### push to github
